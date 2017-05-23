@@ -18,45 +18,51 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
         private Activity GetCardMessage(QueryResponse queryResponse, Activity message)
         {
             Activity activity = null;
-            activity = message.CreateReply();
-            activity.AttachmentLayout = "carousel";
-            activity.Attachments = new List<Attachment>();
-
+            
             var cardImages = new List<CardImage>();
             var cardActions = new List<CardAction>();
 
             var cardMessageCollection = queryResponse.ToCards();
 
-            foreach (var cardMessage in cardMessageCollection)
+            if(cardMessageCollection != null)
             {
-                cardImages.Add(new CardImage
-                {
-                    Url = cardMessage.ImageUrl
-                });
+                activity = message.CreateReply();
+                activity.AttachmentLayout = "carousel";
+                activity.Attachments = new List<Attachment>();
 
-                var cardButtons = new List<CardAction>();
-
-                foreach (var button in cardMessage.Buttons)
+                foreach (var cardMessage in cardMessageCollection)
                 {
-                    cardButtons.Add(new CardAction
+                    cardImages.Add(new CardImage
                     {
-                        Title = button.Text,
-                        Type = button.ToCardActionType(),
-                        Value = button.Postback
+                        Url = cardMessage.ImageUrl
                     });
+
+                    var cardButtons = new List<CardAction>();
+
+                    foreach (var button in cardMessage.Buttons)
+                    {
+                        cardButtons.Add(new CardAction
+                        {
+                            Title = button.Text,
+                            Type = button.ToCardActionType(),
+                            Value = button.Postback
+                        });
+                    }
+
+                    var heroCard = new HeroCard()
+                    {
+                        Title = cardMessage.Title,
+                        Subtitle = cardMessage.Subtitle,
+                        Images = cardImages,
+                        Buttons = cardButtons
+                    };
+
+                    Attachment attachment = heroCard.ToAttachment();
+                    activity.Attachments.Add(attachment);
                 }
-
-                var heroCard = new HeroCard()
-                {
-                    Title = cardMessage.Title,
-                    Subtitle = cardMessage.Subtitle,
-                    Images = cardImages,
-                    Buttons = cardButtons
-                };
-
-                Attachment attachment = heroCard.ToAttachment();
-                activity.Attachments.Add(attachment);
             }
+
+            
 
             return activity;
         }

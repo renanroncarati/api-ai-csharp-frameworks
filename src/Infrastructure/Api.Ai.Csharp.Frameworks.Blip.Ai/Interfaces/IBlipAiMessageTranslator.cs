@@ -10,6 +10,6 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai.Interfaces
 {
     public interface IBlipAiMessageTranslator
     {
-        Task<Document> TranslateAsync(QueryResponse queryResponse);
+        Task<IList<Document>> TranslateAsync(QueryResponse queryResponse);
     }
 }
