@@ -157,6 +157,12 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
             return documentCollection;
         }
 
+        /// <summary>
+        /// TODO: Implement payload.
+        /// </summary>
+        /// <param name="queryResponse"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private Document GetPayloadMessages(QueryResponse queryResponse)
         {
             DocumentCollection documentCollection = null;
@@ -168,11 +174,30 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
         private Document GetQuickReplayMessages(QueryResponse queryResponse)
         {
-            DocumentCollection documentCollection = null;
+            Document document = null;
 
             var quickReplayMessageCollection = queryResponse.ToQuickReplaies();
 
-            return documentCollection;
+            if (quickReplayMessageCollection != null)
+            {
+                var select = new Select
+                {
+                    Scope = SelectScope.Immediate,
+                    Options = new SelectOption[quickReplayMessageCollection.Count]
+                };
+
+                for (int i = 0; i < quickReplayMessageCollection.Count; i++)
+                {
+                    select.Options[i] = new SelectOption
+                    {
+                        Text = quickReplayMessageCollection[i].Title,
+                        Order = i,
+                        Value = new PlainText { Text = quickReplayMessageCollection[i].Replies != null ? quickReplayMessageCollection[i].Replies.FirstOrDefault() : null }
+                    };
+                }
+            }
+
+            return document;
         }
 
         private Document GetTextMessages(QueryResponse queryResponse)
@@ -180,6 +205,14 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
             DocumentCollection documentCollection = null;
 
             var textMessageCollection = queryResponse.ToTexts();
+
+            if(textMessageCollection != null)
+            {
+                foreach (var textMessage in textMessageCollection)
+                {
+                    
+                }
+            }
 
             return documentCollection;
         }

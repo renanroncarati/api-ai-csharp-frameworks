@@ -27,10 +27,10 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
         {
             IsValid(queryResponse);
 
-            var cardMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Card);
-
-            if (cardMessageCollection != null)
+            try
             {
+                var cardMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Card);
+
                 var cardMessageList = cardMessageCollection.ToList();
 
                 if (cardMessageList != null && cardMessageList.Count > 0)
@@ -45,6 +45,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
                     return messages;
                 }
             }
+            catch { }
 
             return null;
         }
@@ -53,10 +54,10 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
         {
             IsValid(queryResponse);
 
-            var imageMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Image);
-
-            if (imageMessageCollection != null)
+            try
             {
+                var imageMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Image);
+
                 var imageMessageList = imageMessageCollection.ToList();
 
                 if (imageMessageList != null && imageMessageList.Count > 0)
@@ -70,7 +71,9 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
 
                     return messages;
                 }
+
             }
+            catch { }
 
             return null;
         }
@@ -79,10 +82,10 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
         {
             IsValid(queryResponse);
 
-            var payloadMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Payload);
-
-            if (payloadMessageCollection != null)
+            try
             {
+                var payloadMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Payload);
+
                 var payloadMessageList = payloadMessageCollection.ToList();
 
                 if (payloadMessageList != null && payloadMessageList.Count > 0)
@@ -96,7 +99,9 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
 
                     return messages;
                 }
+
             }
+            catch { }
 
             return null;
         }
@@ -105,10 +110,10 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
         {
             IsValid(queryResponse);
 
-            var quickReplayMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.QuickReply);
-
-            if (quickReplayMessageCollection != null)
+            try
             {
+                var quickReplayMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.QuickReply);
+                
                 var quickReplyMessageList = quickReplayMessageCollection.ToList();
 
                 if (quickReplyMessageList != null && quickReplyMessageList.Count > 0)
@@ -123,6 +128,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
                     return messages;
                 }
             }
+            catch { }
 
             return null;
         }
@@ -131,10 +137,10 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
         {
             IsValid(queryResponse);
 
-            var textMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Text);
-
-            if (textMessageCollection != null)
+            try
             {
+                var textMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Text).ToList();
+
                 var textMessageList = textMessageCollection.ToList();
 
                 if (textMessageList != null && textMessageList.Count > 0)
@@ -149,6 +155,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
                     return messages;
                 }
             }
+            catch { }
 
             return null;
         }

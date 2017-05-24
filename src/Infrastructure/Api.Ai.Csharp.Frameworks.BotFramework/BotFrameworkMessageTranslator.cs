@@ -8,6 +8,8 @@ using Api.Ai.Domain.DataTransferObject.Response;
 using Microsoft.Bot.Connector;
 using Api.Ai.Csharp.Frameworks.Domain.Service.Extensions;
 using Api.Ai.Csharp.Frameworks.BotFramework.Extension;
+using Newtonsoft.Json;
+using Api.Ai.Csharp.Frameworks.Domain.DataTransferObject;
 
 namespace Api.Ai.Csharp.Frameworks.BotFramework
 {
@@ -27,9 +29,8 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             if (cardMessageCollection != null)
             {
                 activity = message.CreateReply();
-                activity.AttachmentLayout = "carousel";
-                activity.Attachments = new List<Attachment>();
-
+                activity.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+            
                 foreach (var cardMessage in cardMessageCollection)
                 {
                     cardImages.Add(new CardImage
@@ -91,18 +92,39 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             return null;
         }
 
-        private List<Activity> GetPayloadMessages(QueryResponse queryResponse, Activity message)
+        /// <summary>
+        /// TODO: Implement payload.
+        /// </summary>
+        /// <param name="queryResponse"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        private Activity GetPayloadMessages(QueryResponse queryResponse, Activity message)
         {
-            List<Activity> activities = null;
+            Activity activity = null;
 
             var payloadMessageCollection = queryResponse.ToPayloads();
 
             if (payloadMessageCollection != null)
             {
+                activity = message.CreateReply();
 
+                foreach (var payloadMessage in payloadMessageCollection)
+                {
+                    var payload = JsonConvert.DeserializeObject<PlatformPayload>(payloadMessage.Payload.ToString());
+
+                    if (payload != null && payload.Facebook != null && payload.Facebook.Attachment != null
+                        && payload.Facebook.Attachment.Payload != null)
+                    {
+                        activity.Attachments.Add(new Attachment
+                        {
+                            ContentUrl = payload.Facebook.Attachment.Payload.Url,
+                            ContentType = $"{payload.Facebook.Attachment.Type.ToString().ToLower()}/{payload.Facebook.Attachment.Payload.Url.ToContentType()}"
+                        });
+                    }
+                }
             }
 
-            return activities;
+            return activity;
         }
 
         private Activity GetQuickReplayMessages(QueryResponse queryResponse, Activity message)
@@ -122,10 +144,12 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
                 foreach (var quickReplay in quickReplayCollection)
                 {
-                    activities.SuggestedActions.Actions.Add(new CardAction() { Title = quickReplay.Title, Type = ActionTypes.ImBack, Value = quickReplay.Replies.FirstOrDefault() });
+                    if (quickReplay.Replies != null)
+                    {
+                        activities.SuggestedActions.Actions.Add(new CardAction() { Title = quickReplay.Title, Type = ActionTypes.ImBack, Value = quickReplay.Replies.FirstOrDefault() });
+                    }
                 }
             }
-
             return activities;
         }
 
@@ -141,12 +165,12 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
                 foreach (var textMessage in textMessageCollection)
                 {
-                    if(!string.IsNullOrEmpty(textMessage.Speech))
+                    if (!string.IsNullOrEmpty(textMessage.Speech))
                     {
                         var replyMessage = message.CreateReply();
                         replyMessage.Text = textMessage.Speech;
                         activities.Add(replyMessage);
-                    }                    
+                    }
                 }
             }
 
@@ -185,17 +209,14 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                 activities.Add(imageMessage);
 
             }
+            
+                var payloadMessage = GetPayloadMessages(queryResponse, message);
 
-            var payloadMessages = GetPayloadMessages(queryResponse, message);
-
-            if (payloadMessages != null && payloadMessages.Count > 0)
-            {
-                foreach (var payload in payloadMessages)
+                if (payloadMessage != null)
                 {
-                    activities.Add(payload);
+                    activities.Add(payloadMessage);
                 }
-            }
-           
+         
             var quickReplayMessages = GetQuickReplayMessages(queryResponse, message);
 
             if (quickReplayMessages != null)

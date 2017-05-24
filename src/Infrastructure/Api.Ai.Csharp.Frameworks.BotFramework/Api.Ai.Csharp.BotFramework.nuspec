@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Api.Ai.Csharp.BotFramework</id>
+        <version>1.0.0.0</version>
+        <title>Api.Ai.Csharp.BotFramework</title>
+        <authors>Bruno Brandes</authors>
+        <owners>Bruno Brandes</owners>
+        <licenseUrl>https://github.com/brunobrandes/api-ai-csharp</licenseUrl>
+        <projectUrl>https://github.com/brunobrandes/api-ai-csharp</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A C# wrapper for the api.ai to Bot Framework</description>
+        <releaseNotes>Translate card, images, payload and text api.ai to Bot Framework</releaseNotes>
+        <copyright>Bruno Brandes</copyright>
+        <language>pt-BR</language>
+        <dependencies>
+            <group targetFramework=".NETFramework4.6.1">
+                <dependency id="Newtonsoft.Json" version="10.0.2" />
+                <dependency id="Api.Ai.Csharp" version="1.0.2.3" />
+                <dependency id="Microsoft.Bot.Builder" version="3.8.1.0" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\Api.Ai.Csharp.Frameworks.BotFramework.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.dll" />
+        <file src="bin\Release\Api.Ai.Csharp.Frameworks.BotFramework.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.pdb" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\bin\Release\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\bin\Release\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.pdb" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\bin\Release\Api.Ai.Csharp.Frameworks.Domain.Enum.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.dll" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\bin\Release\Api.Ai.Csharp.Frameworks.Domain.Enum.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.pdb" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Service\bin\Release\Api.Ai.Csharp.Frameworks.Domain.Service.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.Service.dll" />
+        <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Service\bin\Release\Api.Ai.Csharp.Frameworks.Domain.Service.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.Service.pdb" />
+    </files>
+</package>
