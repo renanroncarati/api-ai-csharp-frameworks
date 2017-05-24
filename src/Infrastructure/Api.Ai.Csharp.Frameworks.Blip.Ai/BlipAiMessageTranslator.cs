@@ -9,6 +9,8 @@ using Lime.Protocol;
 using Lime.Messaging.Contents;
 using Api.Ai.Csharp.Frameworks.Domain.Service.Extensions;
 using Api.Ai.Domain.DataTransferObject.Response.Message;
+using Newtonsoft.Json;
+using Api.Ai.Csharp.Frameworks.Domain.DataTransferObject;
 
 namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 {
@@ -141,16 +143,17 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
                 for (int i = 0; i < imageMessageCollection.Count; i++)
                 {
-                    documentCollection.Items[i] = new DocumentContainer
+                    if(!string.IsNullOrEmpty(imageMessageCollection[i].ImageUrl))
                     {
-                        Value = new MediaLink
+                        documentCollection.Items[i] = new DocumentContainer
                         {
-                            Type = MediaType.Parse(imageMessageCollection[i].ImageUrl.ToContentType()),
-                            PreviewType = new MediaType(MediaType.DiscreteTypes.Image, MediaType.SubTypes.JPeg),
-                            PreviewUri = new Uri(imageMessageCollection[i].ImageUrl),
-                            Uri = new Uri(imageMessageCollection[i].ImageUrl)
-                        }
-                    };
+                            Value = new MediaLink
+                            {
+                                Type = MediaType.Parse(imageMessageCollection[i].ImageUrl.ToMediaType()),
+                                Uri = new Uri(imageMessageCollection[i].ImageUrl)
+                            }
+                        };
+                    }                   
                 }
             }
 
@@ -163,13 +166,32 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
         /// <param name="queryResponse"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        private Document GetPayloadMessages(QueryResponse queryResponse)
+        private List<Document> GetPayloadMessages(QueryResponse queryResponse)
         {
-            DocumentCollection documentCollection = null;
+            var documents = new List<Document>();
 
             var payloadMessageCollection = queryResponse.ToPayloads();
 
-            return documentCollection;
+            if (payloadMessageCollection != null)
+            {
+
+                for (int i = 0; i < payloadMessageCollection.Count; i++)
+                {
+                    var payload = JsonConvert.DeserializeObject<PlatformPayload>(payloadMessageCollection[i].Payload.ToString());
+
+                    if (payload != null && payload.Facebook != null && payload.Facebook.Attachment != null
+                    && payload.Facebook.Attachment.Payload != null && !string.IsNullOrEmpty(payload.Facebook.Attachment.Payload.Url))
+                    {
+                        documents.Add(new MediaLink
+                        {
+                            Type = MediaType.Parse(payload.Facebook.Attachment.Payload.Url.ToMediaType()),
+                            Uri = new Uri(payload.Facebook.Attachment.Payload.Url)
+                        });
+                    }
+                }
+            }
+
+            return documents;
         }
 
         private Document GetQuickReplayMessages(QueryResponse queryResponse)
@@ -200,21 +222,27 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
             return document;
         }
 
-        private Document GetTextMessages(QueryResponse queryResponse)
+        private List<Document> GetTextMessages(QueryResponse queryResponse)
         {
-            DocumentCollection documentCollection = null;
+            var documents = new List<Document>();
 
             var textMessageCollection = queryResponse.ToTexts();
 
-            if(textMessageCollection != null)
+            if (textMessageCollection != null)
             {
                 foreach (var textMessage in textMessageCollection)
                 {
-                    
+                    if (!string.IsNullOrEmpty(textMessage.Speech))
+                    {
+                        documents.Add(new PlainText
+                        {
+                            Text = textMessage.Speech
+                        });
+                    }
                 }
             }
 
-            return documentCollection;
+            return documents;
         }
 
         #endregion
@@ -223,7 +251,44 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
         public Task<IList<Document>> TranslateAsync(QueryResponse queryResponse)
         {
-            throw new NotImplementedException();
+            var documents = new List<Document>();
+
+            var cardMessage = GetCardMessage(queryResponse);
+
+            if (cardMessage != null)
+            {
+                documents.Add(cardMessage);
+            }
+
+            var imageMessage = GetImageMessage(queryResponse);
+
+            if (imageMessage != null)
+            {
+                documents.Add(imageMessage);
+            }
+
+            var payloadMessages = GetPayloadMessages(queryResponse);
+
+            if (payloadMessages != null)
+            {
+                documents.AddRange(payloadMessages);
+            }
+
+            var quickReplayMessage = GetQuickReplayMessages(queryResponse);
+
+            if (quickReplayMessage != null)
+            {
+                documents.Add(quickReplayMessage);
+            }
+
+            var textMessages = GetTextMessages(queryResponse);
+
+            if (textMessages != null)
+            {
+                documents.AddRange(textMessages);
+            }
+
+            return Task.FromResult<IList<Document>>(documents);
         }
 
         #endregion

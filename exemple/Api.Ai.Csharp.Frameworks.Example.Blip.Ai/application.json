@@ -1,0 +1,16 @@
+﻿{
+  "identifier": "apiaitoblipai",
+  "accessKey": "RE1MWW51TERDM2FJSFJqdUpWN1Q=",
+  "messageReceivers": [
+    {
+      "type": "PlainTextMessageReceiver",
+      "mediaType": "text/plain"
+    }
+  ],
+  "settings": {
+    "setting1": "value1"
+  },
+  "startupType": "Startup",
+  "serviceProviderType": "ServiceProvider",
+  "schemaVersion": 2
+}

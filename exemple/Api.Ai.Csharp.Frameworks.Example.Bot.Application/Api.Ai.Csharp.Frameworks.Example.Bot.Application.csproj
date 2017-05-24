@@ -45,6 +45,18 @@
     <Reference Include="Api.Ai.ApplicationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.3\lib\net461\Api.Ai.ApplicationService.dll</HintPath>
     </Reference>
+    <Reference Include="Api.Ai.Csharp.Frameworks.BotFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.2\lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.2\lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll</HintPath>
+    </Reference>
+    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Enum, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.2\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.dll</HintPath>
+    </Reference>
+    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.2\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Service.dll</HintPath>
+    </Reference>
     <Reference Include="Api.Ai.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.3\lib\net461\Api.Ai.Domain.DataTransferObject.dll</HintPath>
     </Reference>
@@ -84,6 +96,9 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeTypeMap, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediaTypeMap.2.1.0.0\lib\net40\MimeTypeMap.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -154,20 +169,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\Api.Ai.Csharp.Frameworks.Domain.Enum.csproj">
-      <Project>{8ede3190-bcdb-43a7-9ea7-e32561c90c91}</Project>
-      <Name>Api.Ai.Csharp.Frameworks.Domain.Enum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Service\Api.Ai.Csharp.Frameworks.Domain.Service.csproj">
-      <Project>{61d647d7-8eb7-48b8-8c13-e983c41d3cd4}</Project>
-      <Name>Api.Ai.Csharp.Frameworks.Domain.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Infrastructure\Api.Ai.Csharp.Frameworks.BotFramework\Api.Ai.Csharp.Frameworks.BotFramework.csproj">
-      <Project>{84c74b76-3b1e-4d32-9327-82c9587fef32}</Project>
-      <Name>Api.Ai.Csharp.Frameworks.BotFramework</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,6 @@
 ﻿using Api.Ai.Domain.DataTransferObject.Response;
 using Api.Ai.Domain.DataTransferObject.Response.Message;
+using MimeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +114,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             try
             {
                 var quickReplayMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.QuickReply);
-                
+
                 var quickReplyMessageList = quickReplayMessageCollection.ToList();
 
                 if (quickReplyMessageList != null && quickReplyMessageList.Count > 0)
@@ -160,7 +161,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             return null;
         }
 
-        public static string ToContentType(this string imageUrl)
+        public static string ToFileExtension(this string imageUrl)
         {
             var parameters = imageUrl.Split('.');
 
@@ -171,6 +172,13 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             }
 
             return null;
+        }
+
+        public static string ToMediaType(this string imageUrl)
+        {
+            var fileExtension = ToFileExtension(imageUrl);
+            return MimeTypeMap.GetMimeType(fileExtension);
+
         }
 
     }

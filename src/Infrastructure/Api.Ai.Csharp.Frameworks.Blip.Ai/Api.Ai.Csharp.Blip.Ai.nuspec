@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>Api.Ai.Csharp.BotFramework</id>
+        <id>Api.Ai.Csharp.Blip.Ai</id>
         <version>1.0.0.2</version>
-        <title>Api.Ai.Csharp.BotFramework</title>
+        <title>Api.Ai.Csharp.Blip.Ai</title>
         <authors>Bruno Brandes</authors>
         <owners>Bruno Brandes</owners>
-        <licenseUrl>https://github.com/brunobrandes/api-ai-csharp</licenseUrl>
-        <projectUrl>https://github.com/brunobrandes/api-ai-csharp</projectUrl>
+        <licenseUrl>https://github.com/brunobrandes/api-ai-csharp-frameworks</licenseUrl>
+        <projectUrl>https://github.com/brunobrandes/api-ai-csharp-frameworks</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A C# wrapper for the api.ai to Bot Framework</description>
-        <releaseNotes>Translate card, images, payload and text api.ai to Bot Framework</releaseNotes>
+        <description>A C# wrapper for the api.ai to blip.ai</description>
+        <releaseNotes>Translate card, images, payload and text api.ai to Blip Ai</releaseNotes>
         <copyright>Bruno Brandes</copyright>
         <language>pt-BR</language>
         <dependencies>
             <group targetFramework=".NETFramework4.6.1">
                 <dependency id="Newtonsoft.Json" version="10.0.2" />
                 <dependency id="Api.Ai.Csharp" version="1.0.2.3" />
-                <dependency id="Microsoft.Bot.Builder" version="3.8.1.0" />
                 <dependency id="MediaTypeMap" version="2.1.0.0" />
+                <dependency id="Takenet.MessagingHub.Client.Template" version="0.4.141" />
             </group>
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Release\Api.Ai.Csharp.Frameworks.BotFramework.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.dll" />
-        <file src="bin\Release\Api.Ai.Csharp.Frameworks.BotFramework.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.pdb" />
+        <file src="bin\Release\Api.Ai.Csharp.Frameworks.Blip.Ai.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Blip.Ai.dll" />
+        <file src="bin\Release\Api.Ai.Csharp.Frameworks.Blip.Ai.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.Blip.Ai.pdb" />
         <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\bin\Release\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll" />
         <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\bin\Release\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.pdb" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.pdb" />
         <file src="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\bin\Release\Api.Ai.Csharp.Frameworks.Domain.Enum.dll" target="lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.dll" />

@@ -78,12 +78,15 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
                 foreach (var imageMessage in imageMessageCollection)
                 {
-                    replyMessage.Attachments.Add(new Attachment()
+                    if(!string.IsNullOrEmpty(imageMessage.ImageUrl))
                     {
-                        ContentUrl = imageMessage.ImageUrl,
-                        ContentType = $"image/{imageMessage.ImageUrl.ToContentType()}",
-                        ThumbnailUrl = imageMessage.ImageUrl
-                    });
+                        replyMessage.Attachments.Add(new Attachment()
+                        {
+                            ContentUrl = imageMessage.ImageUrl,
+                            ContentType = imageMessage.ImageUrl.ToMediaType(),
+                            ThumbnailUrl = imageMessage.ImageUrl
+                        });
+                    }                   
                 }
 
                 return replyMessage;
@@ -91,13 +94,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
             return null;
         }
-
-        /// <summary>
-        /// TODO: Implement payload.
-        /// </summary>
-        /// <param name="queryResponse"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        
         private Activity GetPayloadMessages(QueryResponse queryResponse, Activity message)
         {
             Activity activity = null;
@@ -113,12 +110,12 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                     var payload = JsonConvert.DeserializeObject<PlatformPayload>(payloadMessage.Payload.ToString());
 
                     if (payload != null && payload.Facebook != null && payload.Facebook.Attachment != null
-                        && payload.Facebook.Attachment.Payload != null)
+                        && payload.Facebook.Attachment.Payload != null && !string.IsNullOrEmpty(payload.Facebook.Attachment.Payload.Url))
                     {
                         activity.Attachments.Add(new Attachment
                         {
                             ContentUrl = payload.Facebook.Attachment.Payload.Url,
-                            ContentType = $"{payload.Facebook.Attachment.Type.ToString().ToLower()}/{payload.Facebook.Attachment.Payload.Url.ToContentType()}"
+                            ContentType = payload.Facebook.Attachment.Payload.Url.ToMediaType()
                         });
                     }
                 }

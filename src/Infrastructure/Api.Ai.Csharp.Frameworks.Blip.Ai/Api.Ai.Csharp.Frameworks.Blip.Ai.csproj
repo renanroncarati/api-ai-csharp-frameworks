@@ -82,6 +82,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.csproj">
+      <Project>{5d32573c-3077-4ece-9ea2-b784fc36b398}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.DataTransferObject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\Api.Ai.Csharp.Frameworks.Domain.Enum.csproj">
       <Project>{8ede3190-bcdb-43a7-9ea7-e32561c90c91}</Project>
       <Name>Api.Ai.Csharp.Frameworks.Domain.Enum</Name>
