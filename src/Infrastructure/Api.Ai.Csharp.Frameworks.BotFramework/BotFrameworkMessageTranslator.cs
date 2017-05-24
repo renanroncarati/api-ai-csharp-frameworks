@@ -18,13 +18,13 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
         private Activity GetCardMessage(QueryResponse queryResponse, Activity message)
         {
             Activity activity = null;
-            
+
             var cardImages = new List<CardImage>();
             var cardActions = new List<CardAction>();
 
             var cardMessageCollection = queryResponse.ToCards();
 
-            if(cardMessageCollection != null)
+            if (cardMessageCollection != null)
             {
                 activity = message.CreateReply();
                 activity.AttachmentLayout = "carousel";
@@ -62,23 +62,33 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                 }
             }
 
-            
+
 
             return activity;
         }
 
-        private List<Activity> GetImageMessages(QueryResponse queryResponse, Activity message)
+        private Activity GetImageMessages(QueryResponse queryResponse, Activity message)
         {
-            List<Activity> result = null;
-
             var imageMessageCollection = queryResponse.ToImages();
 
             if (imageMessageCollection != null)
             {
+                var replyMessage = message.CreateReply();
 
+                foreach (var imageMessage in imageMessageCollection)
+                {
+                    replyMessage.Attachments.Add(new Attachment()
+                    {
+                        ContentUrl = imageMessage.ImageUrl,
+                        ContentType = $"image/{imageMessage.ImageUrl.ToContentType()}",
+                        ThumbnailUrl = imageMessage.ImageUrl
+                    });
+                }
+
+                return replyMessage;
             }
 
-            return result;
+            return null;
         }
 
         private List<Activity> GetPayloadMessages(QueryResponse queryResponse, Activity message)
@@ -95,15 +105,25 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             return activities;
         }
 
-        private List<Activity> GetQuickReplayMessages(QueryResponse queryResponse, Activity message)
+        private Activity GetQuickReplayMessages(QueryResponse queryResponse, Activity message)
         {
-            List<Activity> activities = null;
+            Activity activities = null;
 
-            var quickReplayMessageCollection = queryResponse.ToQuickReplaies();
+            var quickReplayCollection = queryResponse.ToQuickReplaies();
 
-            if (quickReplayMessageCollection != null)
+            if (quickReplayCollection != null)
             {
+                activities = message.CreateReply();
+                activities.Type = ActivityTypes.Message;
+                activities.TextFormat = TextFormatTypes.Plain;
 
+                activities.SuggestedActions = new SuggestedActions();
+                activities.SuggestedActions.Actions = new List<CardAction>();
+
+                foreach (var quickReplay in quickReplayCollection)
+                {
+                    activities.SuggestedActions.Actions.Add(new CardAction() { Title = quickReplay.Title, Type = ActionTypes.ImBack, Value = quickReplay.Replies.FirstOrDefault() });
+                }
             }
 
             return activities;
@@ -117,7 +137,17 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
             if (textMessageCollection != null)
             {
+                activities = new List<Activity>();
 
+                foreach (var textMessage in textMessageCollection)
+                {
+                    if(!string.IsNullOrEmpty(textMessage.Speech))
+                    {
+                        var replyMessage = message.CreateReply();
+                        replyMessage.Text = textMessage.Speech;
+                        activities.Add(replyMessage);
+                    }                    
+                }
             }
 
             return activities;
@@ -131,6 +161,16 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
         {
             var activities = new List<Activity>();
 
+            var textMessages = GetTextMessages(queryResponse, message);
+
+            if (textMessages != null && textMessages.Count > 0)
+            {
+                foreach (var text in textMessages)
+                {
+                    activities.Add(text);
+                }
+            }
+
             var cardMessage = GetCardMessage(queryResponse, message);
 
             if (cardMessage != null)
@@ -138,14 +178,12 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                 activities.Add(cardMessage);
             }
 
-            var imageMessages = GetImageMessages(queryResponse, message);
+            var imageMessage = GetImageMessages(queryResponse, message);
 
-            if (imageMessages != null && imageMessages.Count > 0)
+            if (imageMessage != null)
             {
-                foreach (var image in imageMessages)
-                {
-                    activities.Add(image);
-                }
+                activities.Add(imageMessage);
+
             }
 
             var payloadMessages = GetPayloadMessages(queryResponse, message);
@@ -157,25 +195,13 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                     activities.Add(payload);
                 }
             }
-
+           
             var quickReplayMessages = GetQuickReplayMessages(queryResponse, message);
 
-            if (quickReplayMessages != null && quickReplayMessages.Count > 0)
+            if (quickReplayMessages != null)
             {
-                foreach (var quickReplay in quickReplayMessages)
-                {
-                    activities.Add(quickReplay);
-                }
-            }
+                activities.Add(quickReplayMessages);
 
-            var textMessages = GetTextMessages(queryResponse, message);
-
-            if (textMessages != null && textMessages.Count > 0)
-            {
-                foreach (var text in textMessages)
-                {
-                    activities.Add(text);
-                }
             }
 
             return Task.FromResult<IList<Activity>>(activities);

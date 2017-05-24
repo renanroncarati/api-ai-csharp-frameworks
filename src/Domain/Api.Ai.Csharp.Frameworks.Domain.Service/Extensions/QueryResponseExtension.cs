@@ -153,5 +153,18 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             return null;
         }
 
+        public static string ToContentType(this string imageUrl)
+        {
+            var parameters = imageUrl.Split('.');
+
+            if (parameters != null && parameters.Count() > 0)
+            {
+                var i = parameters.Count() - 1;
+                return parameters[i];
+            }
+
+            return null;
+        }
+
     }
 }

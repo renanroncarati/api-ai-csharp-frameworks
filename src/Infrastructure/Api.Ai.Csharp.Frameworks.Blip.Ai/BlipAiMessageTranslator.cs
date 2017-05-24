@@ -145,7 +145,7 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
                     {
                         Value = new MediaLink
                         {
-                            Type = MediaType.Parse("image/jpeg"),
+                            Type = MediaType.Parse(imageMessageCollection[i].ImageUrl.ToContentType()),
                             PreviewType = new MediaType(MediaType.DiscreteTypes.Image, MediaType.SubTypes.JPeg),
                             PreviewUri = new Uri(imageMessageCollection[i].ImageUrl),
                             Uri = new Uri(imageMessageCollection[i].ImageUrl)
