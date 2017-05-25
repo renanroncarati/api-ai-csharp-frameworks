@@ -20,6 +20,8 @@ See api.ai [documentation](https://docs.api.ai/docs) for more details.
 
 ##### Using blip.ai 
 
+See [api.ai To blip.ai](https://www.messenger.com/t/477688789289489). Sample [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform) chatbot.</br>
+
 [Get to know implementation](https://goo.gl/ZIDko8)
 
 ### TODO
