@@ -103,6 +103,4 @@ public class PlainTextMessageReceiver : IMessageReceiver
     }
 }
 ```  
-See [api.ai To blip.ai](https://m.me/docs) chatbot published in [Facebook Messenger](https://www.messenger.com/t/477688789289489).
-
 [Download the examples](https://goo.gl/ew06Zi) for test your chatbot  </br>
