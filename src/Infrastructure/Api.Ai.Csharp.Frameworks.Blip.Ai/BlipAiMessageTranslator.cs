@@ -143,7 +143,7 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
                 for (int i = 0; i < imageMessageCollection.Count; i++)
                 {
-                    if(!string.IsNullOrEmpty(imageMessageCollection[i].ImageUrl))
+                    if (!string.IsNullOrEmpty(imageMessageCollection[i].ImageUrl))
                     {
                         documentCollection.Items[i] = new DocumentContainer
                         {
@@ -153,7 +153,7 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
                                 Uri = new Uri(imageMessageCollection[i].ImageUrl)
                             }
                         };
-                    }                   
+                    }
                 }
             }
 
@@ -196,13 +196,11 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
         private Document GetQuickReplayMessages(QueryResponse queryResponse)
         {
-            Document document = null;
-
             var quickReplayMessageCollection = queryResponse.ToQuickReplaies();
 
             if (quickReplayMessageCollection != null)
             {
-                var select = new Select
+                var document = new Select
                 {
                     Scope = SelectScope.Immediate,
                     Options = new SelectOption[quickReplayMessageCollection.Count]
@@ -210,16 +208,18 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
 
                 for (int i = 0; i < quickReplayMessageCollection.Count; i++)
                 {
-                    select.Options[i] = new SelectOption
+                    document.Options[i] = new SelectOption
                     {
                         Text = quickReplayMessageCollection[i].Title,
                         Order = i,
                         Value = new PlainText { Text = quickReplayMessageCollection[i].Replies != null ? quickReplayMessageCollection[i].Replies.FirstOrDefault() : null }
                     };
                 }
+
+                return document;
             }
 
-            return document;
+            return null;
         }
 
         private List<Document> GetTextMessages(QueryResponse queryResponse)
