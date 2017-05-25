@@ -22,7 +22,7 @@ See api.ai [documentation](https://docs.api.ai/docs) for more details.
 
 See [api.ai To blip.ai](https://www.messenger.com/t/477688789289489) chatbot with docs.</br>
 
-[Get to know implementation](https://goo.gl/ZIDko8)
+[Step by step BLiP implementation](https://goo.gl/spmjdV)
 
 ### TODO
 
