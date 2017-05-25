@@ -194,29 +194,40 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
             return documents;
         }
 
-        private Document GetQuickReplayMessages(QueryResponse queryResponse)
+        private List<Document> GetQuickReplayMessages(QueryResponse queryResponse)
         {
             var quickReplayMessageCollection = queryResponse.ToQuickReplaies();
 
             if (quickReplayMessageCollection != null)
             {
-                var document = new Select
-                {
-                    Scope = SelectScope.Immediate,
-                    Options = new SelectOption[quickReplayMessageCollection.Count]
-                };
+                var documents = new List<Document>();
 
                 for (int i = 0; i < quickReplayMessageCollection.Count; i++)
                 {
-                    document.Options[i] = new SelectOption
+                    var document = new Select
                     {
-                        Text = quickReplayMessageCollection[i].Title,
-                        Order = i,
-                        Value = new PlainText { Text = quickReplayMessageCollection[i].Replies != null ? quickReplayMessageCollection[i].Replies.FirstOrDefault() : null }
+                        Scope = SelectScope.Immediate,
+                        Options = new SelectOption[quickReplayMessageCollection[i].Replies.Count()],
+                        Text = quickReplayMessageCollection[i].Title
                     };
+
+                    if (quickReplayMessageCollection[i].Replies != null)
+                    {
+                        for (int j = 0; j < quickReplayMessageCollection[i].Replies.Count(); j++)
+                        {
+                            document.Options[j] = new SelectOption
+                            {
+                                Text = quickReplayMessageCollection[i].Replies[j],
+                                Order = j,
+                                Value = new PlainText { Text = quickReplayMessageCollection[i].Replies[j] }
+                            };
+                        }
+                    }
+
+                    documents.Add(document);
                 }
 
-                return document;
+                return documents;
             }
 
             return null;
@@ -274,11 +285,11 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
                 documents.AddRange(payloadMessages);
             }
 
-            var quickReplayMessage = GetQuickReplayMessages(queryResponse);
+            var quickReplayMessages = GetQuickReplayMessages(queryResponse);
 
-            if (quickReplayMessage != null)
+            if (quickReplayMessages != null)
             {
-                documents.Add(quickReplayMessage);
+                documents.AddRange(quickReplayMessages);
             }
 
             var textMessages = GetTextMessages(queryResponse);
