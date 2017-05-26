@@ -32,11 +32,11 @@ namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
 
         public async Task ReceiveAsync(Message message, CancellationToken cancellationToken)
         {
-            var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "543b9445d21a4d1bb79c3f569f8d4827");
+            var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "YOUR_ACCESS_TOKEN");
 
             var queryRequest = new QueryRequest
             {
-                SessionId = "1",
+                SessionId = message.From.Name,
                 Query = new string[] { message.Content.ToString() },
                 Lang = Api.Ai.Domain.Enum.Language.Portuguese
             };

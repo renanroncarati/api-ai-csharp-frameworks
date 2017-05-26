@@ -30,7 +30,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             {
                 activity = message.CreateReply();
                 activity.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-            
+
                 foreach (var cardMessage in cardMessageCollection)
                 {
                     cardImages.Add(new CardImage
@@ -78,7 +78,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
                 foreach (var imageMessage in imageMessageCollection)
                 {
-                    if(!string.IsNullOrEmpty(imageMessage.ImageUrl))
+                    if (!string.IsNullOrEmpty(imageMessage.ImageUrl))
                     {
                         replyMessage.Attachments.Add(new Attachment()
                         {
@@ -86,7 +86,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                             ContentType = imageMessage.ImageUrl.ToMediaType(),
                             ThumbnailUrl = imageMessage.ImageUrl
                         });
-                    }                   
+                    }
                 }
 
                 return replyMessage;
@@ -94,7 +94,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
             return null;
         }
-        
+
         private Activity GetPayloadMessages(QueryResponse queryResponse, Activity message)
         {
             Activity activity = null;
@@ -124,27 +124,35 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             return activity;
         }
 
-        private Activity GetQuickReplayMessages(QueryResponse queryResponse, Activity message)
+        private List<Activity> GetQuickReplayMessages(QueryResponse queryResponse, Activity message)
         {
-            Activity activities = null;
+            List<Activity> activities = null;
 
             var quickReplayCollection = queryResponse.ToQuickReplaies();
 
             if (quickReplayCollection != null)
             {
-                activities = message.CreateReply();
-                activities.Type = ActivityTypes.Message;
-                activities.TextFormat = TextFormatTypes.Plain;
-
-                activities.SuggestedActions = new SuggestedActions();
-                activities.SuggestedActions.Actions = new List<CardAction>();
+                activities = new List<Activity>();
 
                 foreach (var quickReplay in quickReplayCollection)
                 {
+                    var activity = message.CreateReply();
+                    activity.Text = quickReplay.Title;
+                    activity.Type = ActivityTypes.Message;
+                    activity.TextFormat = TextFormatTypes.Plain;
+
+                    activity.SuggestedActions = new SuggestedActions();
+                    activity.SuggestedActions.Actions = new List<CardAction>();
+
                     if (quickReplay.Replies != null)
                     {
-                        activities.SuggestedActions.Actions.Add(new CardAction() { Title = quickReplay.Title, Type = ActionTypes.ImBack, Value = quickReplay.Replies.FirstOrDefault() });
+                        foreach (var reply in quickReplay.Replies)
+                        {
+                            activity.SuggestedActions.Actions.Add(new CardAction() { Title = reply, Type = ActionTypes.ImBack, Value = reply });
+                        }
                     }
+
+                    activities.Add(activity);
                 }
             }
             return activities;
@@ -206,19 +214,19 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                 activities.Add(imageMessage);
 
             }
-            
-                var payloadMessage = GetPayloadMessages(queryResponse, message);
 
-                if (payloadMessage != null)
-                {
-                    activities.Add(payloadMessage);
-                }
-         
+            var payloadMessage = GetPayloadMessages(queryResponse, message);
+
+            if (payloadMessage != null)
+            {
+                activities.Add(payloadMessage);
+            }
+
             var quickReplayMessages = GetQuickReplayMessages(queryResponse, message);
 
             if (quickReplayMessages != null)
             {
-                activities.Add(quickReplayMessages);
+                activities.AddRange(quickReplayMessages);
 
             }
 

@@ -168,12 +168,13 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
         /// <returns></returns>
         private List<Document> GetPayloadMessages(QueryResponse queryResponse)
         {
-            var documents = new List<Document>();
+            List<Document> documents = null;
 
             var payloadMessageCollection = queryResponse.ToPayloads();
 
             if (payloadMessageCollection != null)
             {
+                documents = new List<Document>();
 
                 for (int i = 0; i < payloadMessageCollection.Count; i++)
                 {
@@ -284,19 +285,19 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
             {
                 documents.AddRange(payloadMessages);
             }
+            
+            var textMessages = GetTextMessages(queryResponse);
+
+            if (textMessages != null)
+            {
+                documents.AddRange(textMessages);
+            }
 
             var quickReplayMessages = GetQuickReplayMessages(queryResponse);
 
             if (quickReplayMessages != null)
             {
                 documents.AddRange(quickReplayMessages);
-            }
-
-            var textMessages = GetTextMessages(queryResponse);
-
-            if (textMessages != null)
-            {
-                documents.AddRange(textMessages);
             }
 
             return Task.FromResult<IList<Document>>(documents);

@@ -1,6 +1,6 @@
 ﻿{
-  "identifier": "apiaitoblipai",
-  "accessKey": "RE1MWW51TERDM2FJSFJqdUpWN1Q=",
+  "identifier": "YOUR_BLIPAI_IDENTIFIER",
+  "accessKey": "YOUR_BLIPAI_ACCESS_KEY",
   "messageReceivers": [
     {
       "type": "PlainTextMessageReceiver",
