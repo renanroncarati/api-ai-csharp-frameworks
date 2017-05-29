@@ -1,14 +1,15 @@
 ﻿{
-  "identifier": "YOUR_BLIPAI_IDENTIFIER",
-  "accessKey": "YOUR_BLIPAI_ACCESS_KEY",
+  "identifier": "protobots",
+  "accessKey": "dkRQNTFDRktXWlU2cWxkNkFMV0g=",
   "messageReceivers": [
     {
       "type": "PlainTextMessageReceiver",
       "mediaType": "text/plain"
     }
   ],
+  "settingsType": "ExampleSettings",
   "settings": {
-    "setting1": "value1"
+    "ApiAiAccessToken": "access_token"
   },
   "startupType": "Startup",
   "serviceProviderType": "ServiceProvider",

@@ -19,26 +19,28 @@ namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
         private readonly IApiAiAppServiceFactory _apiAiAppServiceFactory;
         private readonly IBlipAiMessageTranslator _blipAiMessageTranslator;
         private readonly IMessagingHubSender _sender;
+        private readonly ExampleSettings _settings;
 
         #endregion
 
         public PlainTextMessageReceiver(IMessagingHubSender sender, IApiAiAppServiceFactory apiAiAppServiceFactory,
-            IBlipAiMessageTranslator blipAiMessageTranslator)
+            IBlipAiMessageTranslator blipAiMessageTranslator, ExampleSettings settings)
         {
             _apiAiAppServiceFactory = apiAiAppServiceFactory;
             _blipAiMessageTranslator = blipAiMessageTranslator;
             _sender = sender;
+            _settings = settings;
         }
 
         public async Task ReceiveAsync(Message message, CancellationToken cancellationToken)
         {
-            var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "YOUR_ACCESS_TOKEN");
+            var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", _settings.ApiAiAccessToken);
 
             var queryRequest = new QueryRequest
             {
                 SessionId = message.From.Name,
                 Query = new string[] { message.Content.ToString() },
-                Lang = Api.Ai.Domain.Enum.Language.Portuguese
+                Lang = Api.Ai.Domain.Enum.Language.BrazilianPortuguese
             };
 
             var queryResponse = await queryAppService.PostQueryAsync(queryRequest);
