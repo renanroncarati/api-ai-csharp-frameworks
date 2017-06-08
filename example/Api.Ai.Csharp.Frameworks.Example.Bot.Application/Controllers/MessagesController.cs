@@ -73,7 +73,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
             {
                 var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
-                var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "543b9445d21a4d1bb79c3f569f8d4827");
+                var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "YOUR_ACCESS_TOKEN");
 
                 var queryRequest = new QueryRequest
                 {

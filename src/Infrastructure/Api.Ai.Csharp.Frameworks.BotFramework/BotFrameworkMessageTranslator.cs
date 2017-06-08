@@ -20,8 +20,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
         private Activity GetCardMessage(QueryResponse queryResponse, Activity message)
         {
             Activity activity = null;
-
-            var cardImages = new List<CardImage>();
+            
             var cardActions = new List<CardAction>();
 
             var cardMessageCollection = queryResponse.ToCards();
@@ -33,11 +32,6 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
 
                 foreach (var cardMessage in cardMessageCollection)
                 {
-                    cardImages.Add(new CardImage
-                    {
-                        Url = cardMessage.ImageUrl
-                    });
-
                     var cardButtons = new List<CardAction>();
 
                     foreach (var button in cardMessage.Buttons)
@@ -54,7 +48,13 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                     {
                         Title = cardMessage.Title,
                         Subtitle = cardMessage.Subtitle,
-                        Images = cardImages,
+                        Images = new List<CardImage>()
+                        {
+                            new CardImage
+                            {
+                                Url = cardMessage.ImageUrl
+                            }
+                        },
                         Buttons = cardButtons
                     };
 
@@ -62,9 +62,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
                     activity.Attachments.Add(attachment);
                 }
             }
-
-
-
+            
             return activity;
         }
 
