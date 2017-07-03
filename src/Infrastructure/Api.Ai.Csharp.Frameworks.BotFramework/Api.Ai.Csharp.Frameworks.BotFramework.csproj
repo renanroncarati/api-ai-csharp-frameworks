@@ -95,7 +95,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotFrameworkMessageTranslator.cs" />
-    <Compile Include="Extension\MessageResponseExtension.cs" />
+    <Compile Include="Extensions\ActivityExtension.cs" />
+    <Compile Include="Extensions\MessageResponseExtension.cs" />
     <Compile Include="Interfaces\IBotFrameworkMessageTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

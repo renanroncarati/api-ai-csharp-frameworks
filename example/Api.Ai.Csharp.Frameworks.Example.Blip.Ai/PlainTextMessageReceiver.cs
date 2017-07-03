@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Api.Ai.ApplicationService.Factories;
 using Api.Ai.Csharp.Frameworks.Blip.Ai.Interfaces;
 using Api.Ai.Domain.DataTransferObject.Request;
+using Lime.Messaging.Contents;
+using Api.Ai.Csharp.Frameworks.Blip.Ai.Extensions;
 
 namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
 {
@@ -47,9 +49,10 @@ namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
 
             var documents = await _blipAiMessageTranslator.TranslateAsync(queryResponse);
 
-            foreach (var document in documents)
+            for (int i = 0; i < documents.Count; i++)
             {
-                await _sender.SendMessageAsync(document, message.From, cancellationToken);
+                await _sender.SendMessageAsync(documents[i], message.From, cancellationToken);
+                await documents[i].SendChatStateAsync(_sender, message.From, cancellationToken, i, documents.Count);
             }
         }
     }

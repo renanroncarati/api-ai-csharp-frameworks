@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Api.Ai.Domain.DataTransferObject.Response;
 using Microsoft.Bot.Connector;
 using Api.Ai.Csharp.Frameworks.Domain.Service.Extensions;
-using Api.Ai.Csharp.Frameworks.BotFramework.Extension;
+using Api.Ai.Csharp.Frameworks.BotFramework.Extensions;
 using Newtonsoft.Json;
 using Api.Ai.Csharp.Frameworks.Domain.DataTransferObject;
 
@@ -234,6 +234,5 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
         }
 
         #endregion
-
     }
 }

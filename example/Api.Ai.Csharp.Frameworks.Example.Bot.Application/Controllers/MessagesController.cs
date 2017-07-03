@@ -8,6 +8,7 @@ using System;
 using Api.Ai.Csharp.Frameworks.BotFramework.Interfaces;
 using Api.Ai.ApplicationService.Factories;
 using Api.Ai.Domain.DataTransferObject.Request;
+using Api.Ai.Csharp.Frameworks.BotFramework.Extensions;
 
 namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 {
@@ -77,7 +78,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 
                 var queryRequest = new QueryRequest
                 {
-                    SessionId = "1",
+                    SessionId = activity.Conversation.Id,
                     Query = new string[] { activity.Text },
                     Lang = Api.Ai.Domain.Enum.Language.English
                 };
@@ -86,9 +87,10 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 
                 var activities = await _botFrameworkMessageTranslator.TranslateAsync(queryResponse, activity);
 
-                foreach (var reply in activities)
+                for (int i = 0; i < activities.Count; i++)
                 {
-                    await connector.Conversations.ReplyToActivityAsync(reply);
+                    await connector.Conversations.ReplyToActivityAsync(activities[i]);
+                    await activities[i].SendTypingAsync(connector, i, activities.Count);
                 }
             }
             else

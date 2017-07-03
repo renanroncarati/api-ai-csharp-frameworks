@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api.Ai.Csharp.Frameworks.BotFramework.Extension
+namespace Api.Ai.Csharp.Frameworks.BotFramework.Extensions
 {
     public static class MessageResponseExtension
     {

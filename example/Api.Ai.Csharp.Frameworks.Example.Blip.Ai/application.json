@@ -1,6 +1,6 @@
 ﻿{
-  "identifier": "YOUR_BLIPAI_IDENTIFIER",
-  "accessKey": "YOUR_BLIPAI_ACCESS_KEY",
+  "identifier": "YOUR_IDENTIFIER",
+  "accessKey": "YOUR_ACCESS_KEY",
   "messageReceivers": [
     {
       "type": "PlainTextMessageReceiver",
@@ -9,7 +9,7 @@
   ],
   "settingsType": "ExampleSettings",
   "settings": {
-    "ApiAiAccessToken": "access_token"
+    "ApiAiAccessToken": "YOUR_ACCESS_TOKEN"
   },
   "startupType": "Startup",
   "serviceProviderType": "ServiceProvider",

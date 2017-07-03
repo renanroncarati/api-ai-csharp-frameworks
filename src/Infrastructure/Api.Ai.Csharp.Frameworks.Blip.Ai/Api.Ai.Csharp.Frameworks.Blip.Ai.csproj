@@ -45,14 +45,23 @@
     <Reference Include="Api.Ai.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Api.Ai.Csharp.1.0.2.3\lib\net461\Api.Ai.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Lime.Messaging, Version=0.7.132.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lime.Messaging.0.7.132\lib\net461\Lime.Messaging.dll</HintPath>
+    <Reference Include="Lime.Messaging, Version=0.7.148.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lime.Messaging.0.7.148\lib\net461\Lime.Messaging.dll</HintPath>
     </Reference>
-    <Reference Include="Lime.Protocol, Version=0.7.132.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lime.Protocol.0.7.132\lib\net461\Lime.Protocol.dll</HintPath>
+    <Reference Include="Lime.Protocol, Version=0.7.148.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lime.Protocol.0.7.148\lib\net461\Lime.Protocol.dll</HintPath>
+    </Reference>
+    <Reference Include="Lime.Protocol.Serialization, Version=0.7.148.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lime.Protocol.Serialization.0.7.148\lib\net461\Lime.Protocol.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Lime.Transport.Tcp, Version=0.7.148.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lime.Transport.Tcp.0.7.148\lib\net461\Lime.Transport.Tcp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartFormat, Version=2.0.0.0, Culture=neutral, PublicKeyToken=568866805651201f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SmartFormat.NET.2.0.0.0\lib\net45\SmartFormat.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,9 +84,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Takenet.Iris.Messaging, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Takenet.Iris.Messaging.1.1.10\lib\net461\Takenet.Iris.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Takenet.MessagingHub.Client, Version=0.4.153.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Takenet.MessagingHub.Client.0.4.153\lib\net461\Takenet.MessagingHub.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlipAiMessageTranslator.cs" />
+    <Compile Include="Extensions\DocumentExtension.cs" />
     <Compile Include="Interfaces\IBlipAiMessageTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
