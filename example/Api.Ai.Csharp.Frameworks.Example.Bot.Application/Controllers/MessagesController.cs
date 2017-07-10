@@ -9,6 +9,7 @@ using Api.Ai.Csharp.Frameworks.BotFramework.Interfaces;
 using Api.Ai.ApplicationService.Factories;
 using Api.Ai.Domain.DataTransferObject.Request;
 using Api.Ai.Csharp.Frameworks.BotFramework.Extensions;
+using System.Configuration;
 
 namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 {
@@ -20,6 +21,8 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
         private readonly IApiAiAppServiceFactory _apiAiAppServiceFactory;
         private readonly IBotFrameworkMessageTranslator _botFrameworkMessageTranslator;
 
+        private static string _apiAiKey;
+
         #endregion
 
         #region Constructor
@@ -28,6 +31,24 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
         {
             _apiAiAppServiceFactory = apiAiAppServiceFactory;
             _botFrameworkMessageTranslator = botFrameworkMessageTranslator;
+        }
+
+        #endregion
+
+        #region Protected Fields
+
+        protected static string ApiAiKey
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_apiAiKey))
+                {
+                    _apiAiKey = ConfigurationManager.AppSettings["apiAiKey"];
+                }
+
+                return _apiAiKey;
+            }
+
         }
 
         #endregion
@@ -64,6 +85,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
         }
 
         #endregion
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -74,7 +96,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
             {
                 var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
-                var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", "YOUR_ACCESS_TOKEN");
+                var queryAppService = _apiAiAppServiceFactory.CreateQueryAppService("https://api.api.ai/v1", ApiAiKey);
 
                 var queryRequest = new QueryRequest
                 {
