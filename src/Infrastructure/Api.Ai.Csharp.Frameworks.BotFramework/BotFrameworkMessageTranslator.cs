@@ -28,6 +28,7 @@ namespace Api.Ai.Csharp.Frameworks.BotFramework
             if (cardMessageCollection != null)
             {
                 activity = message.CreateReply();
+                activity.Attachments = new List<Attachment>();
                 activity.AttachmentLayout = AttachmentLayoutTypes.Carousel;
 
                 foreach (var cardMessage in cardMessageCollection)
