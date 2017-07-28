@@ -139,7 +139,6 @@ public class PlainTextMessageReceiver : IMessageReceiver
 
 - [x] Create translator Blip.ai
 - [x] Create translator BotFramework
-- [ ] Implement QuickReply (wait the api.ai [issues])
 - [ ] Write unit tests
 
 ### License
