@@ -40,7 +40,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
 
             var queryRequest = new QueryRequest
             {
-                SessionId = message.From.Name,
+                SessionId = message.From.Name.Length > 36 ? message.From.Name.Substring(0, 35) : message.From.Name,
                 Query = new string[] { message.Content.ToString() },
                 Lang = Api.Ai.Domain.Enum.Language.BrazilianPortuguese
             };

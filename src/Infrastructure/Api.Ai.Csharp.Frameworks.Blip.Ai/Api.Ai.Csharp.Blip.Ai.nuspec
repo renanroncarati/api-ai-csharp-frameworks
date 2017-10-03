@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Api.Ai.Csharp.Blip.Ai</id>
-        <version>1.0.0.6</version>
+        <version>1.0.0.7</version>
         <title>Api.Ai.Csharp.Blip.Ai</title>
         <authors>Bruno Brandes</authors>
         <owners>Bruno Brandes</owners>
@@ -10,15 +10,16 @@
         <projectUrl>https://github.com/brunobrandes/api-ai-csharp-frameworks</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A C# wrapper for the api.ai to blip.ai</description>
-        <releaseNotes>Translate card, images, payload, text and quick reply api.ai to Blip Ai</releaseNotes>
+        <summary />
+        <releaseNotes>Translate card, images, payload, text and quick reply api.ai to Blip Ai - Update nuget package --version</releaseNotes>
         <copyright>Bruno Brandes</copyright>
         <language>pt-BR</language>
         <dependencies>
             <group targetFramework=".NETFramework4.6.1">
-                <dependency id="Newtonsoft.Json" version="10.0.2" />
-                <dependency id="Api.Ai.Csharp" version="1.0.2.3" />
                 <dependency id="MediaTypeMap" version="2.1.0.0" />
-                <dependency id="Takenet.MessagingHub.Client.Template" version="0.4.141" />
+                <dependency id="Api.Ai.Csharp" version="1.0.2.4" />
+                <dependency id="Newtonsoft.Json" version="10.0.3" />
+                <dependency id="Takenet.MessagingHub.Client.Template" version="0.4.174" />
             </group>
         </dependencies>
     </metadata>
