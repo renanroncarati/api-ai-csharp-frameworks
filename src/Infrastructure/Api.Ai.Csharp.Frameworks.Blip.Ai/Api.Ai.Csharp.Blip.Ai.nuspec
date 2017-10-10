@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Api.Ai.Csharp.Blip.Ai</id>
-        <version>1.0.0.7</version>
+        <version>1.0.0.8</version>
         <title>Api.Ai.Csharp.Blip.Ai</title>
         <authors>Bruno Brandes</authors>
         <owners>Bruno Brandes</owners>
@@ -11,7 +11,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A C# wrapper for the api.ai to blip.ai</description>
         <summary />
-        <releaseNotes>Translate card, images, payload, text and quick reply api.ai to Blip Ai - Update nuget package --version</releaseNotes>
+        <releaseNotes>Translate card, images, payload, text and quick reply api.ai to Blip Ai.</releaseNotes>
         <copyright>Bruno Brandes</copyright>
         <language>pt-BR</language>
         <dependencies>

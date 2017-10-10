@@ -49,9 +49,9 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai.Extensions
                 }
             }
 
-            await Task.Delay(300);
+            await Task.Delay(650);
         }
-
+        
         #endregion
 
     }
