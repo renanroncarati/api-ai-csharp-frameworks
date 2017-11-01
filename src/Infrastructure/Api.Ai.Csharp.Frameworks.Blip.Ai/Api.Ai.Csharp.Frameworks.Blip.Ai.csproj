@@ -104,7 +104,13 @@
   <ItemGroup>
     <Compile Include="BlipAiMessageTranslator.cs" />
     <Compile Include="Extensions\DocumentExtension.cs" />
+    <Compile Include="Factories\MessageParseFactory.cs" />
+    <Compile Include="Parse\BlipAiCardMessage.cs" />
+    <Compile Include="Parse\BlipAiImageMessage.cs" />
     <Compile Include="Interfaces\IBlipAiMessageTranslator.cs" />
+    <Compile Include="Parse\BlipAiPayloadMessage.cs" />
+    <Compile Include="Parse\BlipAiQuickReplyMessage.cs" />
+    <Compile Include="Parse\BlipAiTextMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

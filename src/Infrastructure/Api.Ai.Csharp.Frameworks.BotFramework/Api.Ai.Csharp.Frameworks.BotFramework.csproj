@@ -97,7 +97,13 @@
     <Compile Include="BotFrameworkMessageTranslator.cs" />
     <Compile Include="Extensions\ActivityExtension.cs" />
     <Compile Include="Extensions\MessageResponseExtension.cs" />
+    <Compile Include="Factories\MessageParseFactory.cs" />
     <Compile Include="Interfaces\IBotFrameworkMessageTranslator.cs" />
+    <Compile Include="Parse\BotFrameworkImageMessageParse.cs" />
+    <Compile Include="Parse\BotFrameworkPayloadMessageParse.cs" />
+    <Compile Include="Parse\BotFrameworkQuickReplyMessageParse.cs" />
+    <Compile Include="Parse\BotFrameworkTextMessageParse.cs" />
+    <Compile Include="Parse\BotFrameworkCardMessageParse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,5 +124,6 @@
       <Name>Api.Ai.Csharp.Frameworks.Domain.Service</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

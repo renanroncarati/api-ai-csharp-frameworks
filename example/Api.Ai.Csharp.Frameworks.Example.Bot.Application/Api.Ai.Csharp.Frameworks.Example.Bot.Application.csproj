@@ -23,6 +23,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,18 +45,6 @@
   <ItemGroup>
     <Reference Include="Api.Ai.ApplicationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.4\lib\net461\Api.Ai.ApplicationService.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.BotFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.6\lib\net461\Api.Ai.Csharp.Frameworks.BotFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.6\lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Enum, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.6\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.BotFramework.1.0.0.6\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Service.dll</HintPath>
     </Reference>
     <Reference Include="Api.Ai.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.4\lib\net461\Api.Ai.Domain.DataTransferObject.dll</HintPath>
@@ -170,6 +159,24 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.csproj">
+      <Project>{5d32573c-3077-4ece-9ea2-b784fc36b398}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.DataTransferObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\Api.Ai.Csharp.Frameworks.Domain.Enum.csproj">
+      <Project>{8ede3190-bcdb-43a7-9ea7-e32561c90c91}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Service\Api.Ai.Csharp.Frameworks.Domain.Service.csproj">
+      <Project>{61d647d7-8eb7-48b8-8c13-e983c41d3cd4}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Infrastructure\Api.Ai.Csharp.Frameworks.BotFramework\Api.Ai.Csharp.Frameworks.BotFramework.csproj">
+      <Project>{84c74b76-3b1e-4d32-9327-82c9587fef32}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.BotFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -188,7 +195,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3979</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3979/</IISUrl>
+          <IISUrl>http://localhost:3980/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

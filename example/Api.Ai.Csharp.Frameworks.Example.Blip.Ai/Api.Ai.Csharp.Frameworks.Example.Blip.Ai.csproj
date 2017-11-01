@@ -33,18 +33,6 @@
     <Reference Include="Api.Ai.ApplicationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.4\lib\net461\Api.Ai.ApplicationService.dll</HintPath>
     </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Blip.Ai, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.Blip.Ai.1.0.0.7\lib\net461\Api.Ai.Csharp.Frameworks.Blip.Ai.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.Blip.Ai.1.0.0.7\lib\net461\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Enum, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.Blip.Ai.1.0.0.7\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Enum.dll</HintPath>
-    </Reference>
-    <Reference Include="Api.Ai.Csharp.Frameworks.Domain.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Api.Ai.Csharp.Blip.Ai.1.0.0.7\lib\net461\Api.Ai.Csharp.Frameworks.Domain.Service.dll</HintPath>
-    </Reference>
     <Reference Include="Api.Ai.Domain.DataTransferObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Api.Ai.Csharp.1.0.2.4\lib\net461\Api.Ai.Domain.DataTransferObject.dll</HintPath>
     </Reference>
@@ -138,6 +126,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.csproj">
+      <Project>{5d32573c-3077-4ece-9ea2-b784fc36b398}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.DataTransferObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Enum\Api.Ai.Csharp.Frameworks.Domain.Enum.csproj">
+      <Project>{8ede3190-bcdb-43a7-9ea7-e32561c90c91}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Domain\Api.Ai.Csharp.Frameworks.Domain.Service\Api.Ai.Csharp.Frameworks.Domain.Service.csproj">
+      <Project>{61d647d7-8eb7-48b8-8c13-e983c41d3cd4}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Infrastructure\Api.Ai.Csharp.Frameworks.Blip.Ai\Api.Ai.Csharp.Frameworks.Blip.Ai.csproj">
+      <Project>{82db0d19-744d-44fb-903f-f4aabc3bf833}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Blip.Ai</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

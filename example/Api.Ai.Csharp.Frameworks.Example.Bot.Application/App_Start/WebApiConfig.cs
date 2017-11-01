@@ -1,6 +1,8 @@
 ﻿using Api.Ai.ApplicationService.Factories;
 using Api.Ai.Csharp.Frameworks.BotFramework;
+using Api.Ai.Csharp.Frameworks.BotFramework.Factories;
 using Api.Ai.Csharp.Frameworks.BotFramework.Interfaces;
+using Api.Ai.Csharp.Frameworks.Domain.Service.Factories;
 using Api.Ai.Domain.Service.Factories;
 using Api.Ai.Infrastructure.Factories;
 using Newtonsoft.Json;
@@ -39,6 +41,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 
             container.Register<IApiAiAppServiceFactory, ApiAiAppServiceFactory>(Lifestyle.Singleton);
             container.Register<IHttpClientFactory, HttpClientFactory>(Lifestyle.Singleton);
+            container.Register<IMessageParseFactory, MessageParseFactory>(Lifestyle.Singleton);
 
             container.Register<IBotFrameworkMessageTranslator, BotFrameworkMessageTranslator>(Lifestyle.Scoped);
 

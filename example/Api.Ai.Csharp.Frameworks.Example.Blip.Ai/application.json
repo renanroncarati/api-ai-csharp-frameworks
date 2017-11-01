@@ -1,6 +1,6 @@
 ﻿{
-  "identifier": "YOUR_IDENTIFIER",
-  "accessKey": "YOUR_ACCESS_KEY",
+  "identifier": "apiaitoblipai",
+  "accessKey": "RE1MWW51TERDM2FJSFJqdUpWN1Q=",
   "messageReceivers": [
     {
       "type": "PlainTextMessageReceiver",
@@ -9,7 +9,7 @@
   ],
   "settingsType": "ExampleSettings",
   "settings": {
-    "ApiAiAccessToken": "YOUR_ACCESS_TOKEN"
+    "ApiAiAccessToken": "543b9445d21a4d1bb79c3f569f8d4827"
   },
   "startupType": "Startup",
   "serviceProviderType": "ServiceProvider",

@@ -1,6 +1,8 @@
 ﻿using Api.Ai.ApplicationService.Factories;
 using Api.Ai.Csharp.Frameworks.Blip.Ai;
+using Api.Ai.Csharp.Frameworks.Blip.Ai.Factories;
 using Api.Ai.Csharp.Frameworks.Blip.Ai.Interfaces;
+using Api.Ai.Csharp.Frameworks.Domain.Service.Factories;
 using Api.Ai.Domain.Service.Factories;
 using Api.Ai.Infrastructure.Factories;
 using SimpleInjector;
@@ -20,6 +22,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Blip.Ai
         {                        
             this.Register<IApiAiAppServiceFactory, ApiAiAppServiceFactory>(Lifestyle.Singleton);
             this.Register<IHttpClientFactory, HttpClientFactory>(Lifestyle.Singleton);
+            this.Register<IMessageParseFactory, MessageParseFactory>(Lifestyle.Singleton);
 
             this.Register<IBlipAiMessageTranslator, BlipAiMessageTranslator>(Lifestyle.Singleton);
         }

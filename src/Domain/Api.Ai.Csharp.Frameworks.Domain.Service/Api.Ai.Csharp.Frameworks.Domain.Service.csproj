@@ -71,11 +71,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\QueryResponseExtension.cs" />
+    <Compile Include="Factories\IMessageParseFactory.cs" />
+    <Compile Include="Interfaces\IMessageParse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject\Api.Ai.Csharp.Frameworks.Domain.DataTransferObject.csproj">
+      <Project>{5D32573C-3077-4ECE-9EA2-B784FC36B398}</Project>
+      <Name>Api.Ai.Csharp.Frameworks.Domain.DataTransferObject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using Api.Ai.Domain.DataTransferObject.Response;
+﻿using Api.Ai.Csharp.Frameworks.Domain.DataTransferObject;
+using Api.Ai.Domain.DataTransferObject.Response;
 using Api.Ai.Domain.DataTransferObject.Response.Message;
 using MimeTypes;
 using System;
@@ -11,9 +12,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
 {
     public static class QueryResponseExtension
     {
-        #region Private Methods
-
-        private static void IsValid(QueryResponse queryResponse)
+        public static void IsValid(QueryResponse queryResponse)
         {
             if (queryResponse == null || queryResponse.Result == null ||
                 (queryResponse.Result.Fulfillment == null || queryResponse.Result.Fulfillment.Messages.Count() == 0))
@@ -21,8 +20,6 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
                 throw new InvalidCastException($"Invalid query response - Object is null or empty.");
             }
         }
-
-        #endregion
 
         public static List<CardMessageResponse> ToCards(this QueryResponse queryResponse)
         {
@@ -50,63 +47,7 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
 
             return null;
         }
-
-        public static List<ImageMessageResponse> ToImages(this QueryResponse queryResponse)
-        {
-            IsValid(queryResponse);
-
-            try
-            {
-                var imageMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Image);
-
-                var imageMessageList = imageMessageCollection.ToList();
-
-                if (imageMessageList != null && imageMessageList.Count > 0)
-                {
-                    var messages = new List<ImageMessageResponse>();
-
-                    foreach (var imageMessage in imageMessageList)
-                    {
-                        messages.Add(imageMessage as ImageMessageResponse);
-                    }
-
-                    return messages;
-                }
-
-            }
-            catch { }
-
-            return null;
-        }
-
-        public static List<PayloadMessageResponse> ToPayloads(this QueryResponse queryResponse)
-        {
-            IsValid(queryResponse);
-
-            try
-            {
-                var payloadMessageCollection = queryResponse.Result.Fulfillment.Messages.Where(x => x.Type == (int)Api.Ai.Domain.Enum.Type.Payload);
-
-                var payloadMessageList = payloadMessageCollection.ToList();
-
-                if (payloadMessageList != null && payloadMessageList.Count > 0)
-                {
-                    var messages = new List<PayloadMessageResponse>();
-
-                    foreach (var payloadMessage in payloadMessageList)
-                    {
-                        messages.Add(payloadMessage as PayloadMessageResponse);
-                    }
-
-                    return messages;
-                }
-
-            }
-            catch { }
-
-            return null;
-        }
-
+        
         public static List<QuickReplyMessageResponse> ToQuickReplaies(this QueryResponse queryResponse)
         {
             IsValid(queryResponse);
@@ -161,28 +102,37 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             return null;
         }
 
-        public static List<Api.Ai.Domain.Enum.Type> ToOrderedMessageTypes(this QueryResponse queryResponse)
+        public static List<MessageDescriptor> ToMessageDescriptors(this QueryResponse queryResponse)
         {
-            var types = new List<Api.Ai.Domain.Enum.Type>();
+            var result = new List<MessageDescriptor>();
 
-            foreach (var message in queryResponse.Result.Fulfillment.Messages)
+            for (int i = 0; i < queryResponse.Result.Fulfillment.Messages.Count(); i++)
             {
-                var type = (Api.Ai.Domain.Enum.Type)message.Type;
+                var type = (Api.Ai.Domain.Enum.Type)queryResponse.Result.Fulfillment.Messages[i].Type;
 
-                if (message.Type == (int)Api.Ai.Domain.Enum.Type.Card || message.Type == (int)Api.Ai.Domain.Enum.Type.QuickReply)
+                if (queryResponse.Result.Fulfillment.Messages[i].Type == (int)Api.Ai.Domain.Enum.Type.Card ||
+                    queryResponse.Result.Fulfillment.Messages[i].Type == (int)Api.Ai.Domain.Enum.Type.QuickReply)
                 {
-                    if (!types.Contains(type))
+                    if (result.Where(x => x.Type == type).Count() == 0)
                     {
-                        types.Add(type);
+                        result.Add(new MessageDescriptor
+                        {
+                            Index = i,
+                            Type = type
+                        });
                     }
                 }
                 else
                 {
-                    types.Add(type);
+                    result.Add(new MessageDescriptor
+                    {
+                        Index = i,
+                        Type = type
+                    });
                 }
             }
 
-            return types;
+            return result;
         }
 
         public static string ToFileExtension(this string imageUrl)
@@ -204,6 +154,5 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             return MimeTypeMap.GetMimeType(fileExtension);
 
         }
-
     }
 }

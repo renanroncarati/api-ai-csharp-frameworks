@@ -111,7 +111,7 @@ namespace Api.Ai.Csharp.Frameworks.Example.Bot.Application
 
                 for (int i = 0; i < activities.Count; i++)
                 {
-                    await connector.Conversations.ReplyToActivityAsync(activities[i]);
+                    await connector.Conversations.SendToConversationAsync(activities[i]);
                     await activities[i].SendTypingAsync(connector, i, activities.Count);
                 }
             }
