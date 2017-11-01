@@ -265,41 +265,65 @@ namespace Api.Ai.Csharp.Frameworks.Blip.Ai
         {
             var documents = new List<Document>();
 
-            var cardMessage = GetCardMessage(queryResponse);
+            var types = queryResponse.ToOrderedMessageTypes();
 
-            if (cardMessage != null)
+            foreach (var type in types)
             {
-                documents.Add(cardMessage);
-            }
+                switch (type)
+                {
+                    case Api.Ai.Domain.Enum.Type.Text:
 
-            var imageMessage = GetImageMessage(queryResponse);
+                        var textMessages = GetTextMessages(queryResponse);
 
-            if (imageMessage != null)
-            {
-                documents.Add(imageMessage);
-            }
+                        if (textMessages != null)
+                        {
+                            documents.AddRange(textMessages);
+                        }
 
-            var payloadMessages = GetPayloadMessages(queryResponse);
+                        break;
+                    case Api.Ai.Domain.Enum.Type.Card:
 
-            if (payloadMessages != null)
-            {
-                documents.AddRange(payloadMessages);
+                        var cardMessage = GetCardMessage(queryResponse);
+
+                        if (cardMessage != null)
+                        {
+                            documents.Add(cardMessage);
+                        }
+
+                        break;
+                    case Api.Ai.Domain.Enum.Type.QuickReply:
+
+                        var quickReplayMessages = GetQuickReplayMessages(queryResponse);
+
+                        if (quickReplayMessages != null)
+                        {
+                            documents.AddRange(quickReplayMessages);
+                        }
+
+                        break;
+                    case Api.Ai.Domain.Enum.Type.Image:
+
+                        var imageMessage = GetImageMessage(queryResponse);
+
+                        if (imageMessage != null)
+                        {
+                            documents.Add(imageMessage);
+                        }
+
+                        break;
+                    case Api.Ai.Domain.Enum.Type.Payload:
+
+                        var payloadMessages = GetPayloadMessages(queryResponse);
+
+                        if (payloadMessages != null)
+                        {
+                            documents.AddRange(payloadMessages);
+                        }
+
+                        break;
+                }
             }
             
-            var textMessages = GetTextMessages(queryResponse);
-
-            if (textMessages != null)
-            {
-                documents.AddRange(textMessages);
-            }
-
-            var quickReplayMessages = GetQuickReplayMessages(queryResponse);
-
-            if (quickReplayMessages != null)
-            {
-                documents.AddRange(quickReplayMessages);
-            }
-
             return Task.FromResult<IList<Document>>(documents);
         }
 

@@ -161,6 +161,30 @@ namespace Api.Ai.Csharp.Frameworks.Domain.Service.Extensions
             return null;
         }
 
+        public static List<Api.Ai.Domain.Enum.Type> ToOrderedMessageTypes(this QueryResponse queryResponse)
+        {
+            var types = new List<Api.Ai.Domain.Enum.Type>();
+
+            foreach (var message in queryResponse.Result.Fulfillment.Messages)
+            {
+                var type = (Api.Ai.Domain.Enum.Type)message.Type;
+
+                if (message.Type == (int)Api.Ai.Domain.Enum.Type.Card || message.Type == (int)Api.Ai.Domain.Enum.Type.QuickReply)
+                {
+                    if (!types.Contains(type))
+                    {
+                        types.Add(type);
+                    }
+                }
+                else
+                {
+                    types.Add(type);
+                }
+            }
+
+            return types;
+        }
+
         public static string ToFileExtension(this string imageUrl)
         {
             var parameters = imageUrl.Split('.');
